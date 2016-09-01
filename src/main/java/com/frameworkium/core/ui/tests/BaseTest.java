@@ -16,12 +16,12 @@ import com.frameworkium.core.ui.listeners.ScreenshotListener;
 import com.saucelabs.common.SauceOnDemandAuthentication;
 import com.saucelabs.common.SauceOnDemandSessionIdProvider;
 import com.saucelabs.testng.SauceOnDemandAuthenticationProvider;
+import cucumber.api.Scenario;
+import cucumber.api.java.After;
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.remote.SessionId;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
@@ -35,6 +35,9 @@ import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import cucumber.api.java.Before;
+import ru.yandex.qatools.allure.annotations.Attachment;
+
 
 import static java.util.Objects.isNull;
 
@@ -81,6 +84,27 @@ public abstract class BaseTest
         });
         wait = ThreadLocal.withInitial(BaseTest::newDefaultWait);
         capture = ThreadLocal.withInitial(() -> null);
+    }
+
+    @Before
+    public static void cucumberSetup(){
+        System.out.println("##### frameworkium base test cukes BEFORE method execution #####");
+        instantiateDriverObject();
+        configureBrowserBeforeUse();
+    }
+
+    @Attachment
+    public static byte[] takeScreenshot(){
+        return ((TakesScreenshot) BaseTest.getDriver()).getScreenshotAs(OutputType.BYTES);
+    }
+
+    @After
+    public static void cucumberTeardown(Scenario scenario){
+        System.out.println("##### frameworkium base test cukes AFTER method execution #####");
+        if (scenario.isFailed()){
+            takeScreenshot();
+        }
+        getDriver().quit();
     }
 
     /**
