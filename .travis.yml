@@ -35,7 +35,7 @@ script:
   - tar -xjf /tmp/firefox*.tar.bz2 --directory /tmp
 
   # Download and setup Marionette/geckodriver
-  - wget --no-check-certificate https://github.com/mozilla/geckodriver/releases/download/v0.11.1/geckodriver-v0.11.1-linux32.tar.gz
+  - wget --no-check-certificate https://github.com/mozilla/geckodriver/releases/download/v0.11.1/geckodriver-v0.11.1-linux64.tar.gz
   - tar -xzf geckodriver-v0.11.1-linux32.tar.gz --directory /tmp
 
   # Download and setup Grid
