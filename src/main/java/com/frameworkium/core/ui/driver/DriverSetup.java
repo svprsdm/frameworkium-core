@@ -14,7 +14,7 @@ public class DriverSetup {
 
     /** Supported drivers */
     public enum Browser {
-        MARIONETTE, FIREFOX, CHROME, OPERA, IE, PHANTOMJS, SAFARI, ELECTRON
+        FIREFOX, LEGACYFIREFOX, CHROME, OPERA, IE, PHANTOMJS, SAFARI, ELECTRON
     }
 
     /** Supported remote grids */
@@ -65,10 +65,10 @@ public class DriverSetup {
 
     private Driver createDriverImpl(Browser browser) {
         switch (browser) {
-            case MARIONETTE:
-                return new MarionetteImpl();
             case FIREFOX:
                 return new FirefoxImpl();
+            case LEGACYFIREFOX:
+                return new LegacyFirefoxImpl();
             case CHROME:
                 return new ChromeImpl();
             case OPERA:
