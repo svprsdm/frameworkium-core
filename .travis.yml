@@ -19,7 +19,7 @@ env:
     - CAPTURE_URL="https://capture.ham1.co.uk:5000"
     - SUT_NAME="frameworkium-core"
     - SUT_VERSION=$TRAVIS_BRANCH
-    - THREAD_COUNT=2
+    - THREAD_COUNT=1
     - SELENIUM_MAJ_VER=3.0
     - SELENIUM_VER=$SELENIUM_MAJ_VER.1
 
@@ -49,9 +49,10 @@ script:
   #- unzip chromedriver_linux64.zip
   #- java -jar selenium-server-standalone-$SELENIUM_VER.jar -role node -hub http://localhost:4444/grid/register -browser browserName=chrome,maxInstances=$THREAD_COUNT -port 5556 > /dev/null 2>&1 &
 
+  - mvn verify -B -Dthreads=$THREAD_COUNT -Dbrowser=firefox
+
   # Run on Firefox on the grid via gecko
-  - mvn verify -B -Dthreads=$THREAD_COUNT -Dconfig=FirefoxGrid.yaml
-#  - mvn verify -B -Dthreads=$THREAD_COUNT -Dconfig=FirefoxGrid.yaml -DcaptureURL=$CAPTURE_URL -DsutName="$SUT_NAME" -DsutVersion="$SUT_VERSION"
+  - mvn verify -B -Dthreads=$THREAD_COUNT -Dconfig=FirefoxGrid.yaml -DcaptureURL=$CAPTURE_URL -DsutName="$SUT_NAME" -DsutVersion="$SUT_VERSION"
 
   # Run on chrome on the grid
   # chromium crashes and google chrome doesn't work on travis
