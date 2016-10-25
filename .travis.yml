@@ -19,7 +19,7 @@ env:
     - CAPTURE_URL="https://capture.ham1.co.uk:5000"
     - SUT_NAME="frameworkium-core"
     - SUT_VERSION=$TRAVIS_BRANCH
-    - THREAD_COUNT=1
+    - THREAD_COUNT=2
     - SELENIUM_MAJ_VER=3.0
     - SELENIUM_VER=$SELENIUM_MAJ_VER.1
 
