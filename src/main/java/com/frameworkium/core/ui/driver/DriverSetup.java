@@ -87,6 +87,21 @@ public class DriverSetup {
     }
 
     /**
+     * Returns what type of remote driver has been specified to be used
+     *
+     * @return Remote Driver Type
+     */
+    private static RemoteGrid returnRemoteType() {
+        if (Sauce.isDesired()) {
+            return RemoteGrid.SAUCE;
+        } else if (BrowserStack.isDesired()) {
+            return RemoteGrid.BROWSERSTACK;
+        } else {
+            return RemoteGrid.GRID;
+        }
+    }
+
+    /**
      * Checks whether a remote driver is wanting to be used
      *
      * @return True/False to whether to use a remote driver
@@ -120,21 +135,6 @@ public class DriverSetup {
             return DEFAULT_BROWSER;
         } else {
             return Browser.valueOf(Property.BROWSER.getValue().toUpperCase());
-        }
-    }
-
-    /**
-     * Returns what type of remote driver has been specified to be used
-     *
-     * @return Remote Driver Type
-     */
-    private static RemoteGrid returnRemoteType() {
-        if (Sauce.isDesired()) {
-            return RemoteGrid.SAUCE;
-        } else if (BrowserStack.isDesired()) {
-            return RemoteGrid.BROWSERSTACK;
-        } else {
-            return RemoteGrid.GRID;
         }
     }
 }

@@ -13,6 +13,7 @@ import com.frameworkium.core.ui.driver.WebDriverWrapper;
 import com.frameworkium.core.ui.listeners.CaptureListener;
 import com.frameworkium.core.ui.listeners.SauceLabsListener;
 import com.frameworkium.core.ui.listeners.ScreenshotListener;
+import com.frameworkium.core.ui.listeners.VideoListener;
 import com.saucelabs.common.SauceOnDemandAuthentication;
 import com.saucelabs.common.SauceOnDemandSessionIdProvider;
 import com.saucelabs.testng.SauceOnDemandAuthenticationProvider;
@@ -39,8 +40,9 @@ import java.util.concurrent.TimeUnit;
 import static java.util.Objects.isNull;
 
 @Listeners({CaptureListener.class, ScreenshotListener.class,
-        MethodInterceptor.class, SauceLabsListener.class,
-        TestListener.class, ResultLoggerListener.class})
+            MethodInterceptor.class, SauceLabsListener.class,
+            TestListener.class, ResultLoggerListener.class,
+            VideoListener.class})
 public abstract class BaseTest
         implements SauceOnDemandSessionIdProvider, SauceOnDemandAuthenticationProvider {
 
@@ -175,6 +177,13 @@ public abstract class BaseTest
      */
     public static WebDriverWrapper getDriver() {
         return driver.get().getDriver();
+    }
+
+    /**
+     * @return the {@link Driver} instance for the requesting thread
+     */
+    public static Driver getFrameworkDriver() {
+        return driver.get();
     }
 
     /** Loops through all active driver types and tears them down */

@@ -13,8 +13,6 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.util.concurrent.TimeUnit;
 
-import static com.frameworkium.core.ui.driver.DriverSetup.useRemoteDriver;
-
 public abstract class AbstractDriver implements Driver {
 
     protected static final Logger logger = LogManager.getLogger();
@@ -81,7 +79,7 @@ public abstract class AbstractDriver implements Driver {
     public void maximiseBrowserIfRequired() {
 
         boolean wantToMaximise = Property.wantToMaximise();
-        boolean ableToMaximise = !useRemoteDriver() && !Driver.isNative();
+        boolean ableToMaximise = !Driver.isNative();
 
         if (wantToMaximise && ableToMaximise) {
             this.webDriverWrapper.manage().window().maximize();
